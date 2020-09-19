@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 
 public class Game
@@ -34,21 +35,21 @@ public class Game
 	private GameResult CheckGame()
 	{
 		PrintBoard();
-		var col1 = board[0] == board[3] && board[3] == board[6] && board[0] != 0 && board[0]!=0;
-		var col2 = board[1] == board[4] && board[4] == board[7] && board[1] != 0 && board[1]!=0;
-		var col3 = board[2] == board[5] && board[5] == board[8] && board[2] != 0 && board[2]!=0;
+		var col1 = board[0] == board[3] && board[3] == board[6] && board[0] != 0;
+		var col2 = board[1] == board[4] && board[4] == board[7] && board[1] != 0;
+		var col3 = board[2] == board[5] && board[5] == board[8] && board[2] != 0;
 
-		var row1 = board[0] == board[1] && board[1] == board[2] && board[0] != 0 && board[0]!=0;
-		var row2 = board[3] == board[4] && board[4] == board[5] && board[3] != 0 && board[3]!=0;
-		var row3 = board[6] == board[7] && board[7] == board[8] && board[6] != 0 && board[6]!=0;
+		var row1 = board[0] == board[1] && board[1] == board[2] && board[0] != 0;
+		var row2 = board[3] == board[4] && board[4] == board[5] && board[3] != 0;
+		var row3 = board[6] == board[7] && board[7] == board[8] && board[6] != 0;
 		
-		var dia1 = board[0] == board[4] && board[4] == board[8] && board[0] != 0 && board[0]!=0;
-		var dia2 = board[2] == board[4] && board[4] == board[6] && board[0] != 0 && board[2]!=0;
-
-		// Console.WriteLine($"col1{col1} row1{row1}");
-		_done = (col1 || col2 || col3) || (row1 || row2 || row3) || (dia1|| dia2);
+		var dia1 = board[0] == board[4] && board[4] == board[8] && board[0] != 0;
+		var dia2 = board[2] == board[4] && board[4] == board[6] && board[2] != 0;
+		
+		var tie = !board.Any(x => x == 0);
+		_done = (col1 || col2 || col3) || (row1 || row2 || row3) || (dia1|| dia2) || tie;
 		if (_done)
-			return new GameResult() {Finished = true, Winner = turn};
+			return new GameResult() {Finished = true, Winner = tie == true ? 0 : turn };
 		else
 			return new GameResult() {Finished = false, Winner = 0};
 	}

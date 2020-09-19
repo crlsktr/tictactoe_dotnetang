@@ -16,10 +16,11 @@ export class BoardComponent implements OnInit {
   MakeMark(square)
   {
 	  this.boardState.TakeTurn(square);
-	  this.boardState.GameDone.subscribe(x=>{
-		  console.log("xkcd:",x);
-		if (x)
-			this.winner = "Winner is " + (this.boardState.turn === 1 ? "X":"O");
+	  this.boardState.State.subscribe(x=>{
+		if (x.finished)
+		{
+			this.winner = x.winner === 0 ? "Tie": "Winner is " + x.winner;
+		}
 	  });
 	  
   }

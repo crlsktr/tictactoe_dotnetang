@@ -13,9 +13,14 @@ export class SquareComponent implements OnInit {
 
   constructor(private board:BoardStateService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+	  this.board.State.subscribe(s => {
+		  if (s.finished)
+		  	this.mark = "";
+	  });
+  }
 
   DrawMark(){
-	this.mark = this.board.turn === -1 ? "O": "X";
+	this.mark = this.board.Turn === -1 ? "O": "X";
   }
 }
