@@ -1,5 +1,4 @@
 # TicTacToe
-
 Uses Dotnetcore 3.1 / Angular 9
 
 ## Building and running
